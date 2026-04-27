@@ -5,93 +5,98 @@
 			name="viewport"
 			content="width=device-width, initial-scale=1"
 		>
-	  <style>
-		  body {
-			background-color: #2d132c;
-			padding: 20px;
-		  }
-		  h1 {
-			color: #ee4540;
-			text-align: center;
-		  }
-		  textarea {
-			width: 90%;
-			margin-left: 2%;
-			background-color: #510a32;
-			color: #e2e9ec;
-			padding: 10px;
-			border-width: thin;
-			border-color: #ee4540;
-		  }
-		  ::placeholder {
-		  color: #e2e9ec;
-		  opacity: 1; /* Required for Firefox to show full color */
-		  }
-		  button {
-		  display: inline-block;
-		  background-color: #c72b40;
-		  color: #2d132c;
-		  cursor: pointer;
-		  }
-		  #outputText {
-		  color: #00FF41; /* Neon Matrix Green */
-		  font-family: 'Courier New', Courier, monospace;
-		  font-weight: bold;
-		  text-shadow: 0 0 5px #00FF41, 0 0 10px #00FF41;
-		  padding: 15px;
-		  min-height: 60px;
-		  white-space: pre-wrap; /* Preserves line breaks */
-		  word-wrap: break-word;
-		  }
-		</style>  
+		<style>
+			body {
+				background-color: #2d132c;
+				padding: 20px;
+			}
+			h1 {
+				color: #ee4540;
+				text-align: center;
+			}
+			textarea {
+				width: 90%;
+				margin-left: 2%;
+				background-color: #510a32;
+				color: #e2e9ec;
+				padding: 10px;
+				border-width: thin;
+				border-color: #ee4540;
+			}
+			::placeholder {
+				color: #b2a0af;
+				opacity: 1; /* Required for Firefox to show full color */
+			}
+			button {
+				display: inline-block;
+				background-color: #c72b40;
+				color: #2d132c;
+				padding: 4px 7px 3px 7px;
+				margin-right: 25%;
+				cursor: pointer;
+			}  
+			.button1 {
+				background-color: #38d4bf;
+			}
+			#outputText {
+				color: #00FF41; /* Neon Matrix Green */
+				font-family: 'Courier New', Courier, monospace;
+				font-weight: bold;
+				text-shadow: 0 0 5px #00FF41, 0 0 10px #00FF41;
+				padding: 15px;
+				min-height: 60px;
+				white-space: pre-wrap; /* Preserves line breaks */
+				word-wrap: break-word;
+			}
+		</style>
 	</head>
 	<body>
 		<h1>n,v E)m) v(b{(@ b^UV({ 4.0</h1>
 		<textarea id="inputText" rows="7" placeholder="hello trawas!"></textarea><br><br>
 		<button onclick="encryptText()">ENCRYPT</button>
-		<button onclick="decryptText()">DECRYPT</button>
+		<!-- <button onclick="decryptText()">DECRYPT</button> -->
+		<button class="button1" onclick="decryptText()">DECRYPT</button>
 		<div id="outputText"></div>
 		<script>
-		  // custom dictionary
-		  const cipherMap = {
-			'a': '-', 'b': 'o', 'c': 'b', 'd': 'c', 'e': '(', 'f': 'u',
-			'g': 'n', 'h': 'V', 'i': '^', 'j': 'E', 'k': 'm', 'l': 'N',
-			'm': '&', 'n': 'h', 'o': ')', 'p': 'U', 'r': '{', 's': 'v',
-			't': '@', 'u': ',', 'w': 'G', 'y': 'w', 'z': 'Ë', 'ṅ': '♡',
-			'ñ': 'M', ',': '/', '.': '//',
-		  };
-		
-		  // automatically create a reverse dictionary
-		  const reverseCipherMap = {};
-		  for (const key in cipherMap) {
-			reverseCipherMap[cipherMap[key]] = key;
-		  }
-		
-		  function encryptText() {
-			let text = document.getElementById("inputText").value;
-			let result = "";
-		
-			for (let i = 0; i < text.length; i++) {
-			  let char = text[i];
-			  result += cipherMap[char] ? cipherMap[char] : char;
+			// custom dictionary
+			const cipherMap = {
+				'a': '-', 'b': 'o', 'c': 'b', 'd': 'c', 'e': '(', 'f': 'Ü',
+				'g': 'n', 'h': 'V', 'i': '°', 'j': 'E', 'k': 'm', 'l': 'N',
+				'm': '&', 'n': 'h', 'o': ')', 'p': 'U', 'q': '¿', 'r': '{',
+				's': 'v', 't': 'ɓ', 'u': ',', 'v': 'Û', 'w': 'G', 'x': '≡',
+				'y': 'w', 'z': 'Ê', ',': '/', '.': 'X', 'ḍ': 'Q', 'ê': '^',
+				'ñ': 'M', 'ṅ': 'L', 'ṇ': 'T', 'ś': 'A', 'ṣ': 'H', 'ṭ': 'C',
+			};
+			// automatically create a reverse dictionary
+			const reverseCipherMap = {};
+			for (const key in cipherMap) {
+				reverseCipherMap[cipherMap[key]] = key;
 			}
-		
-			// divs use .innerText instead of .value
-			document.getElementById("outputText").innerText = result;
-		  }
-		
-		  function decryptText() {
-			let text = document.getElementById("inputText").value;
-			let result = "";
-		
-			for (let i = 0; i < text.length; i++) {
-			  let char = text[i];
-			  // reversed map to decrypt
-			  result += reverseCipherMap[char] ? reverseCipherMap[char] : char;
+			
+			function encryptText() {
+				let text = document.getElementById("inputText").value;
+				let result = "";
+			
+				for (let i = 0; i < text.length; i++) {
+				  let char = text[i];
+				  result += cipherMap[char] ? cipherMap[char] : char;
+				}
+				// divs use .innerText instead of .value
+				document.getElementById("outputText").innerText = result;
 			}
-		
-			document.getElementById("outputText").innerText = result;
-		  }
+			
+			function decryptText() {
+				let text = document.getElementById("inputText").value;
+				let result = "";
+			
+				for (let i = 0; i < text.length; i++) {
+					let char = text[i];
+					// reversed map to decrypt
+					result += reverseCipherMap[char] ? reverseCipherMap[char] : char;
+				}
+			
+				document.getElementById("outputText").innerText = result;
+			}
 		</script>
 	</body>
 </html>
