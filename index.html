@@ -30,17 +30,33 @@
 			button {
 				display: inline-block;
 				background-color: #c72b40;
+				border: 2px solid;
+				/* Light edges on top/left, dark on bottom/right for 3D effect */
+				border-color: #ffffff #808080 #808080 #ffffff;
+				font-family: "Tahoma", "Arial", sans-serif;
+                font-size: 14px;
 				color: #2d132c;
-				padding: 4px 7px 3px 7px;
-				margin-right: 25%;
+				padding: 4px 10px;
+				margin-right: 2rem;
+				outline: 1px solid black; /* Outer thin border */
+				outline-offset: -2px;     /* Aligns outline inside */
 				cursor: pointer;
 			}  
 			.button1 {
 				background-color: #38d4bf;
 			}
+			.button2 {
+			    background-color: #c0c0c0;
+            }
+            button:active {
+                /* Invert border colors to look "pressed" */
+                border-color: #808080 #ffffff #ffffff #808080;
+                padding: 5px 9px 3px 11px; /* Slight shift to mimic physical movement */
+            }
 			#outputText {
 				color: #00FF41; /* Neon Matrix Green */
 				font-family: 'Courier New', Courier, monospace;
+				font-size: 2rem;
 				font-weight: bold;
 				text-shadow: 0 0 5px #00FF41, 0 0 10px #00FF41;
 				padding: 15px;
@@ -51,11 +67,11 @@
 		</style>
 	</head>
 	<body>
-		<h1>Gus Joko Adntlgy Cphr 4.0</h1>
+		<h1>البنائين الأحرار<br>©Gus Joko 4.0</h1>
 		<textarea id="inputText" rows="7" placeholder="hello trawas!"></textarea><br><br>
 		<button onclick="encryptText()">ENCRYPT</button>
-		<!-- <button onclick="decryptText()">DECRYPT</button> -->
 		<button class="button1" onclick="decryptText()">DECRYPT</button>
+		<button class="button2" onclick="copyOutput()" id="copyBtn">copy</button>
 		<div id="outputText"></div>
 		<script>
 			// custom dictionary
@@ -72,7 +88,6 @@
 			for (const key in cipherMap) {
 				reverseCipherMap[cipherMap[key]] = key;
 			}
-			
 			function encryptText() {
 				let text = document.getElementById("inputText").value;
 				let result = "";
@@ -84,7 +99,6 @@
 				// divs use .innerText instead of .value
 				document.getElementById("outputText").innerText = result;
 			}
-			
 			function decryptText() {
 				let text = document.getElementById("inputText").value;
 				let result = "";
@@ -97,6 +111,24 @@
 			
 				document.getElementById("outputText").innerText = result;
 			}
+		    function copyOutput() {
+                let textToCopy = document.getElementById("outputText").innerText;
+                // Create a temporary hidden textarea
+                let tempInput = document.createElement("textarea");
+                tempInput.value = textToCopy;
+                tempInput.style.position = "absolute";
+                tempInput.style.left = "-9999px"; // Hide it off-screen
+                document.body.appendChild(tempInput);
+                // Select and copy
+                tempInput.select();
+                document.execCommand("copy");
+                // Clean up
+                document.body.removeChild(tempInput);
+                // Button animation
+                let btn = document.getElementById("copyBtn");
+                btn.innerText = "COPIED!";
+                setTimeout(() => { btn.innerText = "copy"; }, 2000);
+            }
 		</script>
 	</body>
 </html>
